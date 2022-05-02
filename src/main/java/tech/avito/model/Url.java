@@ -30,7 +30,7 @@ public class Url {
 
     private String originalUrl;
 
-    private String shorterUrl;
+    private String shortUrl;
 
     @CreationTimestamp
     @Temporal(value = TemporalType.TIMESTAMP)
