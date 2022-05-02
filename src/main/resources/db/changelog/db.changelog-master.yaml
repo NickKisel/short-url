@@ -1,6 +1,6 @@
 databaseChangeLog:
 - changeSet:
-    id: 1651493069143-1
+    id: 1651494490032-1
     author: kisel (generated)
     changes:
     - createTable:
@@ -23,7 +23,7 @@ databaseChangeLog:
             name: original_url
             type: VARCHAR(255)
         - column:
-            name: shorter_url
+            name: short_url
             type: VARCHAR(255)
         tableName: urls
 
