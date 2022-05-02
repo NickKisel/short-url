@@ -1,0 +1,28 @@
+server:
+  port: ${PORT:5000}
+  domain: "http://localhost:"
+
+spring:
+  application:
+    name: shortUrl
+
+  datasource:
+    url: "jdbc:h2:./shortUrl"
+    username: "sa"
+    password: ""
+
+  h2:
+    console:
+      enabled: true
+      path: /h2console/
+      settings:
+        web-allow-others: true
+
+  jpa:
+    show-sql: true
+
+logging:
+  level:
+    root: INFO
+
+lengthUrl: 10

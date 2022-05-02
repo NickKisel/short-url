@@ -55,7 +55,7 @@ liquibase {
 	activities {
 		main {
 			changeLogFile 'src/main/resources/db/changelog/db.changelog-master.yaml'
-			url 'jdbc:h2:./taskManager'
+			url 'jdbc:h2:./shortUrl'
 			username 'sa'
 			password ''
 			referenceUrl 'hibernate:spring:tech.avito.model' +
