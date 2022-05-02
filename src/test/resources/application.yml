@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:db
+    username: sa
+    password:
+
+server:
+  port:
+  domain:
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+
+lengthUrl: 10
