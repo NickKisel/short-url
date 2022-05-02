@@ -30,8 +30,10 @@ public class UrlServiceImpl implements UrlService {
     @Override
     public Url createShortUrl(UrlDto urlDto) {
         Url url = new Url();
-        String hash = urlDto.getCustomUrl() != null ? urlDto.getCustomUrl() : hashGenerator.generate(lengthUrl);;
-        String shortUrl = domain + port +  "/" + hash;;
+
+        String hash = urlDto.getCustomUrl() != null ? urlDto.getCustomUrl() : hashGenerator.generate(lengthUrl);
+        String shortUrl = domain + port +  "/" + hash;
+
         url.setOriginalUrl(urlDto.getOriginalUrl());
         url.setHash(hash);
         url.setShortUrl(shortUrl);
