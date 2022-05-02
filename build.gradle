@@ -2,11 +2,21 @@ plugins {
 	id 'org.springframework.boot' version '2.6.7'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'application'
+	id 'checkstyle'
+	id 'com.adarshr.test-logger' version '2.1.1'
+	id 'com.github.ben-manes.versions' version '0.38.0'
+	id 'org.liquibase.gradle' version '2.0.4'
+	id 'jacoco'
 }
 
 group = 'tech.avito'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
+
+application {
+	mainClass = 'tech.avito.Application'
+}
 
 configurations {
 	compileOnly {
@@ -28,6 +38,38 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+diffChangeLog {
+	dependsOn compileJava
+}
+
+liquibase {
+	activities {
+		main {
+			changeLogFile 'src/main/resources/db/changelog/db.changelog-master.yaml'
+			url 'jdbc:h2:./taskManager'
+			username 'sa'
+			password ''
+			referenceUrl 'hibernate:spring:tech.avito.model' +
+					'?dialect=org.hibernate.dialect.H2Dialect' +
+					'&hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy'
+		}
+	}
+}
+
+testlogger {
+	showStandardStreams true
+}
+
+jacocoTestReport {
+	reports {
+		xml.required = true
+	}
+}
+
+checkstyle {
+	toolVersion '9.0'
 }
 
 tasks.named('test') {
