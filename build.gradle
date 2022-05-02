@@ -4,9 +4,9 @@ plugins {
 	id 'java'
 	id 'application'
 	id 'checkstyle'
-	id 'com.adarshr.test-logger' version '2.1.1'
-	id 'com.github.ben-manes.versions' version '0.38.0'
-	id 'org.liquibase.gradle' version '2.0.4'
+	id 'com.adarshr.test-logger' version '3.2.0'
+	id 'com.github.ben-manes.versions' version '0.42.0'
+	id 'org.liquibase.gradle' version '2.1.1'
 	id 'jacoco'
 }
 
@@ -35,9 +35,15 @@ dependencies {
 	implementation 'org.liquibase:liquibase-core'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'com.h2database:h2:2.1.212'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	liquibaseRuntime(
+			sourceSets.main.output,
+			'org.liquibase:liquibase-core:4.9.1',
+			'org.liquibase.ext:liquibase-hibernate5:4.9.1',
+			'org.springframework.boot:spring-boot-starter-data-jpa'
+	)
 }
 
 diffChangeLog {

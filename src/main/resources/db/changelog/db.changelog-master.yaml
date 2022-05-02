@@ -1,0 +1,29 @@
+databaseChangeLog:
+- changeSet:
+    id: 1651493069143-1
+    author: kisel (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: urlsPK
+            name: id
+            type: BIGINT
+        - column:
+            name: created_at
+            type: TIMESTAMP
+        - column:
+            name: hash
+            type: VARCHAR(255)
+        - column:
+            name: original_url
+            type: VARCHAR(255)
+        - column:
+            name: shorter_url
+            type: VARCHAR(255)
+        tableName: urls
+
