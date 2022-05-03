@@ -1,5 +1,10 @@
 package tech.avito.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -34,10 +39,23 @@ public class UrlController {
     @Autowired
     private UrlRepository urlRepository;
 
+    @Operation(summary = "Get list of all URLs")
+    @ApiResponse(responseCode = "200", description = "List of all URLs", content =
+    @Content(mediaType = "application/json", schema =
+    @Schema(implementation = Url.class)))
+
     @GetMapping("/urls")
     public List<Url> showUrls() {
         return urlRepository.findAll();
     }
+
+    @Operation(summary = "Get URL by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "URL found", content =
+            @Content(mediaType = "application/json", schema =
+            @Schema(implementation = Url.class))),
+            @ApiResponse(responseCode = "404", description = "URL not found")
+    })
 
     @GetMapping("/urls/{id}")
     public Url showUrlById(@PathVariable Long id) {
@@ -46,17 +64,31 @@ public class UrlController {
                 .orElseThrow(() -> new NoSuchElementException("Url not found"));
     }
 
+    @Operation(summary = "Create new URL")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "URL created", content =
+            @Content(mediaType = "application/json", schema =
+            @Schema(implementation = Url.class))),
+            @ApiResponse(responseCode = "422", description = "Original URL not valid")
+    })
+
     @PostMapping("/urls")
     @ResponseStatus(CREATED)
-    public Url createShorterUrlDefault(@RequestBody @Valid UrlDto urlDto) {
+    public Url createShortUrl(@RequestBody @Valid UrlDto urlDto) {
 
         log.info("Url created");
 
         return urlService.createShortUrl(urlDto);
     }
 
+    @Operation(summary = "Redirect on original URL by your short URL")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "302", description = "Successful redirect"),
+            @ApiResponse(responseCode = "404", description = "URL not found")
+    })
+
     @GetMapping("/{hash}")
-    public ResponseEntity redirectShorterUrl(@PathVariable String hash) {
+    public ResponseEntity redirectByShortUrl(@PathVariable String hash) {
 
         Url url = urlRepository.findByHash(hash)
                 .orElseThrow(() -> new NoSuchElementException("Url not found"));

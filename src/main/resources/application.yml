@@ -6,6 +6,10 @@ spring:
   application:
     name: shortUrl
 
+springdoc:
+  api-docs:
+    path: /swagger.html
+
   datasource:
     url: "jdbc:h2:./shortUrl"
     username: "sa"
