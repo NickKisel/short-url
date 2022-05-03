@@ -1,4 +1,4 @@
-package tech.avito;
+package tech.avito.handler;
 
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.web.bind.MethodArgumentNotValidException;
